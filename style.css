@@ -1,0 +1,29 @@
+.header h1 {
+    background-color: lightcoral;
+    text-align: center;
+}
+
+.header h2 {
+    color: green;
+    text-align: center;
+}
+
+.about h3 {
+    background-color: aqua;
+}
+
+.education h3 {
+    background-color: aquamarine;
+}
+
+.skill h3 {
+    background-color: beige;
+}
+
+.project h3 {
+    background-color: bisque;
+}
+
+.contact h3 {
+    background-color: blanchedalmond;
+}
