@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International University Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="IU1.png" alt="International University" width="200" height="200"/>
+        <h1 class="heading">Survey</h1>
+        <p>If you have a moment, we'd appreciate it if you would fill out this survey</p>
+    </header>
+    <main>
+        <h2 class="info">Your information</h2>
+        <form action="result.html">
+            <section class="information">
+                <label for="fname" class="fname"><b>First Name</b></label>
+                <input type="text" id="fname"><br><br>
+                <label for="lname" class="lname"><b>Last Name</b></label>
+                <input type="text" id="lname"><br><br>
+                <label for="email" class="email"><b>Email</b></label>
+                <input type="email" id="email"><br><br>
+                <label for="dob" class="dob"><b>Date of Birth</b></label>
+                <input type="text" id="dob">
+            </section>
+            <h2 class="q1">How did you hear about us?</h2>
+            <input type="radio" name="radio" id="search">
+            <label for="search-engine">Search engine</label>
+            <input type="radio" name="radio" id="word">
+            <label for="word">Word of mouth</label>
+            <input type="radio" name="radio" id="social">
+            <label for="social">Social Media</label>
+            <input type="radio" name="radio" id="other">
+            <label for="other">Other</label>
+            <h2 class="q2">Would you like to receive announcements about new CDs and special offers?</h2>
+            <input type="checkbox" id="choice1">
+            <label for="c1">YES, I'd like that</label><br>
+            <input type="checkbox", id="choice2">
+            <label for="c2">YES, please send me email announcements</label>
+            <p>Please contact me by: </p>
+            <select name="dropdown" id="choice">
+                <option value="both">Email or postal mail</option>
+                <option value="email">Email only</option>
+                <option value="postal">Postal mail only</option>
+            </select><br><br>
+            <button>Submit</button>
+        </form>     
+    </main>
+    
+    
+</body>
+</html>

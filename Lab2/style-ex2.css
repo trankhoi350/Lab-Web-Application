@@ -1,0 +1,34 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #f3c98b;  /* light orange like in your image */
+  font-family: Arial, sans-serif;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 100vh;
+}
+
+header, main, footer {
+  width: 80%;
+  background-color: #fff;
+}
+
+.item{
+  display: flex;
+  flex-direction: row;
+  flex:1;
+  min-width: 250px;
+  min-height: 600px
+}
+.item1, .item3{
+  flex:1;
+  border: solid 1px black;
+  padding: 10px;
+    
+}
+.item2{
+  flex:2;
+  border: solid 1px black;
+  padding: 10px;
+}
