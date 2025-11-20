@@ -177,16 +177,12 @@ public class StudentController extends HttpServlet {
     private void searchStudents(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1. Get the keyword from the search form
         String keyword = request.getParameter("keyword");
 
-        // 2. Call the DAO method (ensure you added the code from the previous step to StudentDAO)
         List<Student> resultList = studentDAO.searchStudents(keyword);
 
-        // 3. Set the results as an attribute for the JSP
         request.setAttribute("students", resultList);
 
-        // 4. Reuse the student-list.jsp to display the search results
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/student-list.jsp");
         dispatcher.forward(request, response);
     }
@@ -211,7 +207,7 @@ public class StudentController extends HttpServlet {
         if (student.getFullName() == null) {
             request.setAttribute("errorName", "Full name is required");
             isValid = false;
-        }else if (student.getFullName().trim().length() < 2){
+        } else if (student.getFullName().trim().length() < 2){
             request.setAttribute("errorName", "Full name is too short");
             isValid = false;
         }
@@ -225,7 +221,7 @@ public class StudentController extends HttpServlet {
             isValid = false;
         }
         // TODO: Validate major
-        if (student.getMajor() == null) {
+        if (student.getMajor().isEmpty()) {
             request.setAttribute("errorMajor", "Major is required");
             isValid = false;
         }

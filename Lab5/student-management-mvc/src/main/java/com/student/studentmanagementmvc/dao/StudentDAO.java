@@ -179,7 +179,6 @@ public class StudentDAO {
     public List<Student> getStudentsSorted(String sortBy, String order) {
         List<Student> students = new ArrayList<>();
 
-
         List<String> allowedColumns = List.of("id", "student_code", "full_name", "email", "major");
 
         if (sortBy == null || !allowedColumns.contains(sortBy.toLowerCase())) {
