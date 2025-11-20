@@ -152,6 +152,82 @@
             font-size: 64px;
             margin-bottom: 20px;
         }
+        /* ... Keep your existing CSS ... */
+
+        /* NEW CSS FOR SEARCH BAR */
+        .toolbar {
+            display: flex;
+            justify-content: space-between; /* Pushes Add button left, Search right */
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 250px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .search-results-msg {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        /* Update existing toolbar to handle more items */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            background-color: #f8f9fa; /* Light gray background for grouping */
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .filter-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-form select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Make table headers clickable links */
+        th a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        th a:hover {
+            text-decoration: underline;
+            color: #e2e6ea;
+        }
     </style>
 </head>
 <body>
@@ -174,11 +250,45 @@
     </c:if>
 
     <!-- Add New Student Button -->
-    <div style="margin-bottom: 20px;">
+    <div class="toolbar">
         <a href="student?action=new" class="btn btn-primary">
             ➕ Add New Student
         </a>
+
+        <form action="student" method="GET" class="filter-form">
+            <input type="hidden" name="action" value="filter">
+
+            <label for="majorFilter" style="margin:0; font-weight:500;">Filter by:</label>
+            <select name="major" id="majorFilter">
+                <option value="">All Majors</option>
+                <option value="Computer Science" ${param.major == 'Computer Science' ? 'selected' : ''}>Computer Science</option>
+                <option value="Information Technology" ${param.major == 'Information Technology' ? 'selected' : ''}>Information Technology</option>
+                <option value="Software Engineering" ${param.major == 'Software Engineering' ? 'selected' : ''}>Software Engineering</option>
+                <option value="Business Administration" ${param.major == 'Business Administration' ? 'selected' : ''}>Business Administration</option>
+            </select>
+
+            <button type="submit" class="btn btn-secondary" style="padding: 8px 12px;">Apply</button>
+
+            <c:if test="${not empty param.major}">
+                <a href="student?action=list" style="color: #dc3545; font-size: 0.9em;">❌ Clear</a>
+            </c:if>
+        </form>
+
+        <form action="student" method="GET" class="search-form">
+            <input type="hidden" name="action" value="search">
+            <input type="text" name="keyword" class="search-input"
+                   placeholder="Search..." value="${param.keyword}">
+            <button type="submit" class="btn btn-primary" style="padding: 8px 12px;">🔍</button>
+        </form>
     </div>
+
+    <c:if test="${not empty param.keyword}">
+        <p class="search-results-msg">
+            Search results for: <strong>"${param.keyword}"</strong>
+        </p>
+    </c:if>
+
+
 
     <!-- Student Table -->
     <c:choose>
@@ -186,11 +296,41 @@
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Student Code</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Major</th>
+                    <th>
+                        <c:set var="order" value="${param.sortBy == 'id' && param.order == 'asc' ? 'desc' : 'asc'}" />
+                        <a href="student?action=sort&sortBy=id&order=${order}">
+                            ID ${param.sortBy == 'id' ? (param.order == 'asc' ? '⬆️' : '⬇️') : ''}
+                        </a>
+                    </th>
+
+                    <th>
+                        <c:set var="order" value="${param.sortBy == 'student_code' && param.order == 'asc' ? 'desc' : 'asc'}" />
+                        <a href="student?action=sort&sortBy=student_code&order=${order}">
+                            Student Code ${param.sortBy == 'student_code' ? (param.order == 'asc' ? '⬆️' : '⬇️') : ''}
+                        </a>
+                    </th>
+
+                    <th>
+                        <c:set var="order" value="${param.sortBy == 'full_name' && param.order == 'asc' ? 'desc' : 'asc'}" />
+                        <a href="student?action=sort&sortBy=full_name&order=${order}">
+                            Full Name ${param.sortBy == 'full_name' ? (param.order == 'asc' ? '⬆️' : '⬇️') : ''}
+                        </a>
+                    </th>
+
+                    <th>
+                        <c:set var="order" value="${param.sortBy == 'email' && param.order == 'asc' ? 'desc' : 'asc'}" />
+                        <a href="student?action=sort&sortBy=email&order=${order}">
+                            Email ${param.sortBy == 'email' ? (param.order == 'asc' ? '⬆️' : '⬇️') : ''}
+                        </a>
+                    </th>
+
+                    <th>
+                        <c:set var="order" value="${param.sortBy == 'major' && param.order == 'asc' ? 'desc' : 'asc'}" />
+                        <a href="student?action=sort&sortBy=major&order=${order}">
+                            Major ${param.sortBy == 'major' ? (param.order == 'asc' ? '⬆️' : '⬇️') : ''}
+                        </a>
+                    </th>
+
                     <th>Actions</th>
                 </tr>
                 </thead>
