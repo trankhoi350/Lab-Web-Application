@@ -108,7 +108,7 @@
             conn = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/student_management",
                     "root",
-                    "G27k04oi03"
+                    "giakhoi123"
             );
 
             stmt = conn.createStatement();
