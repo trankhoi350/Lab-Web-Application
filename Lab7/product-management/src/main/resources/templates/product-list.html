@@ -160,7 +160,19 @@
             <input type="text" name="keyword" th:value="${keyword}" placeholder="Search products..." />
             <button type="submit" class="btn btn-primary">🔍 Search</button>
         </form>
+
+        <form th:action="@{/products/filter}" method="get">
+            <select name="category" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat}"
+                        th:text="${cat}"
+                        th:selected="${cat == selectedCategory}">
+                </option>
+            </select>
+        </form>
     </div>
+
 
     <!-- Products Table -->
     <div th:if="${products != null and !products.isEmpty()}">
@@ -169,7 +181,12 @@
             <tr>
                 <th>ID</th>
                 <th>Code</th>
-                <th>Name</th>
+                <th>
+                    <a th:href="@{/products(sortBy='name',sortDir=${sortDir=='asc'?'desc':'asc'}, category=${selectedCategory})}">
+                        Name
+                        <span th:if="${sortBy=='name'}" th:text="${sortDir=='asc'?'↑':'↓'}"></span>
+                    </a>
+                </th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Category</th>
