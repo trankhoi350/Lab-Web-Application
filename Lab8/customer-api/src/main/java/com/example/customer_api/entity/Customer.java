@@ -134,7 +134,9 @@ public class Customer {
     }
     public enum CustomerStatus {
         ACTIVE,
-        INACTIVE
+        INACTIVE;
+
+
     }
 }
 

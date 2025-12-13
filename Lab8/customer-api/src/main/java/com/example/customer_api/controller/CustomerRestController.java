@@ -2,9 +2,12 @@ package com.example.customer_api.controller;
 
 import com.example.customer_api.dto.CustomerRequestDTO;
 import com.example.customer_api.dto.CustomerResponseDTO;
+import com.example.customer_api.dto.CustomerUpdateDTO;
 import com.example.customer_api.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -77,4 +80,24 @@ public class CustomerRestController {
         List<CustomerResponseDTO> customers = customerService.getCustomersByStatus(status);
         return ResponseEntity.ok(customers);
     }
+
+    @GetMapping("/advanced-search")
+    public ResponseEntity<List<CustomerResponseDTO>> advancedSearch(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String status) {
+        // Implementation
+        List<CustomerResponseDTO> customers = customerService.advancedSearchCustomers(name, email, status);
+        return ResponseEntity.ok(customers);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CustomerResponseDTO> partialUpdateCustomer(
+            @PathVariable Long id,
+            @RequestBody CustomerUpdateDTO updateDTO) {
+
+        CustomerResponseDTO updated = customerService.partialUpdateCustomer(id, updateDTO);
+        return ResponseEntity.ok(updated);
+    }
+
 }
